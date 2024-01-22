@@ -9,12 +9,13 @@ import { Observable } from 'rxjs';
 
 export class MitablaServiceService {
 
-  private apiUrl = 'http://localhost/Apirestful.php';
+  private apiUrl = 'https://gdmxapi.onrender.com/promedioCatorce';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   obtenerDatos(tabla: string): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+    const body = { celda: tabla };
+    return this.http.post<any>(this.apiUrl, body);
   }
 
 }

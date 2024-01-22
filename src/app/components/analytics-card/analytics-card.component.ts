@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import { Colors } from 'chart.js';
 import {forkJoin, interval, Subscription} from "rxjs";
 import { DataPieChartService } from '../../core/data-pie-chart.service';
+import { CeldaStateService } from '../../core/celda-state.service';
 interface DeviceData {
   [key: string]: number; // Cambia `any` por `number` si solo recibes números
 }
@@ -31,15 +32,24 @@ export class AnalyticsCardComponent implements OnInit {
   deviceData: DeviceData = {}; // Use the DeviceData type here
   colors: Colors = {}; // Use the Colors type here
   private dataSubscription!: Subscription;
-  constructor(private http: HttpClient, private serviciodata:DataPieChartService) {}
+  celda: string = 'celda_1';
+    constructor(
+        private http: HttpClient,
+        private serviciodata: DataPieChartService,
+        private celdaStateService: CeldaStateService
+    ) {}
 
-  ngOnInit(): void {
-    this.fetchAllData();
-    // Configurar para actualizar cada 5 minutos (300000 milisegundos)
-    this.dataSubscription = interval(300000).subscribe(() => {
-      this.fetchAllData();
-    });
-  }
+    ngOnInit(): void {
+        this.celdaStateService.celdaActual$.subscribe((celdaActual) => {
+            this.celda = celdaActual;
+            this.fetchAllData();
+        });
+
+        // Configurar para actualizar cada 5 minutos (300000 milisegundos)
+        this.dataSubscription = interval(300000).subscribe(() => {
+            this.fetchAllData();
+        });
+    }
 
   ngOnDestroy(): void {
     if (this.dataSubscription) {
@@ -47,23 +57,19 @@ export class AnalyticsCardComponent implements OnInit {
     }
   }
 
-  fetchAllData(): void {
-    console.log("sapoloco");
-    const columna = ['jg', 'hf', 'eg', 'ro', 'sb'];
-    const celda = "celda_1" ;
-    this.serviciodata.obtenerDatosCelda(celda, columna).subscribe((valor)=>{
-    this.deviceData= valor;
-      columna.forEach((columna: string) => {
-        // Asegúrate de que la respuesta tenga un valor para la columna actual
-        if (valor && valor.hasOwnProperty(columna)) {
-          const respuesta = valor[columna];
-          this.updateData(celda, columna, respuesta);
-        }
-      });
+    fetchAllData(): void {
+        console.log("el fetch fue exitoso");
+        const columnas = ['jg', 'hf', 'eg', 'ro', 'sb'];
+        this.serviciodata.obtenerDatosCelda(this.celda, columnas).subscribe((valor) => {
+            this.deviceData = valor;
+            columnas.forEach((columna: string) => {
+                if (valor && valor.hasOwnProperty(columna)) {
+                    this.updateData(this.celda, columna, valor[columna]);
+                }
+            });
+        });
+    }
 
-    })
-
-  }
 
 
   updateData(celda: string, columna: string, value: any): void {

@@ -6,8 +6,10 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import { interval, Subscription} from "rxjs";
 import {AnalyticsCardComponent} from "../analytics-card/analytics-card.component";
+import moment from 'moment';
+import { CeldaStateService } from '../../core/celda-state.service';
 
-interface DataApi {
+interface DatosApi {
   fecha: string;
   promedio: number;
 }
@@ -26,17 +28,22 @@ export class TimelineChartComponent implements AfterViewInit, OnDestroy, OnInit 
   @ViewChild('myChart') private chartRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('saveBtn', { static: false }) private saveButton!: ElementRef;
   chart!: Chart;
-  apiEndpoint = 'https://gdmxapi.onrender.com/promedioCatorce';
-  tabla: string = 'mitabla';
   private updateSubscription!: Subscription;
+  tabla: string = 'celda_1';
+  apiEndpoint = 'https://gdmxapi.onrender.com/exportExcel';
 
-  constructor(private miTablaService: MitablaServiceService, private http: HttpClient) {
+
+  constructor(private http: HttpClient, private miTablaService: MitablaServiceService, private CeldaStateService : CeldaStateService) {
     Chart.register(...registerables);
   }
 
   ngOnInit(): void {
-    // Movido a ngAfterViewInit
-  }
+    this.CeldaStateService.celdaActual$.subscribe((celdaActual) => {
+      this.tabla = celdaActual;
+      this.actualizarDatos(); // Actualizar los datos cuando cambia la celda
+    });
+        throw new Error('Method not implemented.');
+    }
 
   ngAfterViewInit(): void {
     this.inicializarGrafico();
@@ -44,7 +51,7 @@ export class TimelineChartComponent implements AfterViewInit, OnDestroy, OnInit 
     this.initializeSaveButton();
   }
 
-  private actualizarDatos() {
+  actualizarDatos() {
     this.miTablaService.obtenerDatos(this.tabla).subscribe(datosApi => {
       this.actualizarGrafico(datosApi);
       if (!this.updateSubscription) {
@@ -85,17 +92,27 @@ export class TimelineChartComponent implements AfterViewInit, OnDestroy, OnInit 
       console.error('No se pudo obtener el contexto del canvas');
       return;
     }
+
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: [],
-        datasets: [{
-          label: 'JG PROMEDIO DÍA:',
-          data: [],
-          backgroundColor: 'rgba(67, 100, 143, 0.2)',
-          borderColor: 'rgba(67, 100, 143, 1)',
-          borderWidth: 1
-        }]
+        datasets: [
+          {
+            label: 'JG PROMEDIO DÍA:',
+            data: [],
+            backgroundColor: 'rgba(67, 100, 143, 0.2)',
+            borderColor: 'rgba(67, 100, 143, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'HF PROMEDIO DÍA:',
+            data: [],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }
+        ]
       },
       options: {
         scales: {
@@ -112,40 +129,23 @@ export class TimelineChartComponent implements AfterViewInit, OnDestroy, OnInit 
     });
   }
 
-  actualizarGrafico(datosApi: { algunaPropiedad: any[] }) {
-    // Asegurarse de que la propiedad 'algunaPropiedad' es un array antes de proceder
-    if (!Array.isArray(datosApi.algunaPropiedad)) {
-      console.error('Los datos recibidos no son un array:', datosApi);
-      return; // Salir de la función si no es un array
-    }
-
-
-    const fechas = datosApi.algunaPropiedad.map(d => d.fecha);
-    const promediosDeDatos = datosApi.algunaPropiedad.map(d => d.promedio);
+  actualizarGrafico(datosApi: any[]): void {
+    const fechas = datosApi.map(d => moment(d.fecha).format('DD/MM/YYYY'));
+    const promediosJG = datosApi.map(d => d.promediojg);
+    const promediosHF = datosApi.map(d => d.promediohf);
 
     // Actualizar el gráfico con las nuevas etiquetas y datos de promedios
     this.chart.data.labels = fechas;
-    this.chart.data.datasets[0].data = promediosDeDatos;
+    this.chart.data.datasets[0].data = promediosJG; // Suponiendo que el primer dataset es para JG
+    this.chart.data.datasets[1].data = promediosHF; // Agrega un segundo dataset para HF si es necesario
     this.chart.update();
   }
 
-  agruparDatosPorDia(datos: any[]): Record<string, number[]> {
-    const agrupados: Record<string, number[]> = {};
-    datos.forEach(dato => {
-      const fecha = new Date(dato.timestamp).toLocaleDateString();
-      if (!agrupados[fecha]) {
-        agrupados[fecha] = [];
-      }
-      agrupados[fecha].push(dato.datoIngreso);
-    });
-    return agrupados;
-  }
   exportarDatos() {
-    const apiUrl = `${this.apiEndpoint}`;
+    const body = { celda: this.tabla };
 
-    this.http.get(apiUrl).subscribe(
-      (data: any) => { // Cambiar el tipo de data a any[]
-        // Verificar si se recibieron datos
+    this.http.post<any[]>(this.apiEndpoint, body).subscribe(
+      (data) => {
         if (data && data.length > 0) {
           this.exportarExcel(data);
         } else {
@@ -159,21 +159,18 @@ export class TimelineChartComponent implements AfterViewInit, OnDestroy, OnInit 
   }
 
   exportarExcel(data: any[]) {
-    const fields = ['id', 'jg', 'hf', 'ro', 'sb', 'eg', 'p1', 'p2', 'timestamp'];
+    const fields = ['jg', 'hf', 'ro', 'sb', 'eg', 'p1', 'p2', 'timestamp'];
 
     const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(data);
+    const worksheet = XLSX.utils.json_to_sheet(data, { header: fields, skipHeader: true });
 
     // Renombrar las columnas en la hoja de cálculo
-    const header = fields.map((field) => ({ v: field }));
-    XLSX.utils.sheet_add_aoa(worksheet, [header], { origin: 'A1' });
+    XLSX.utils.sheet_add_aoa(worksheet, [fields], { origin: 'A1' });
 
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
 
     // Crear un Blob para el archivo Excel
     const arrayBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-
-    // Convertir el ArrayBuffer a Blob
     const blob = new Blob([new Uint8Array(arrayBuffer)], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
     // Descargar el archivo Excel

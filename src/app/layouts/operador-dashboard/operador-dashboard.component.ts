@@ -1,6 +1,5 @@
 import { Component, NgModule } from '@angular/core';
 import { TimelineChartComponent } from '../../components/timeline-chart/timeline-chart.component';
-import { ExportButtonComponent } from '../../components/export-button/export-button.component';
 import { AnalyticsCardComponent } from '../../components/analytics-card/analytics-card.component';
 import { Cell1Component1o } from '../../components/celdas-card-operador/cell1/analytics-card.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
@@ -18,7 +17,7 @@ import {SidebarOpComponent} from '../../components/sidebar-operador/sidebar.comp
 @Component({
   selector: 'app-operador-dashboard',
   standalone: true,
-  imports: [ SidebarOpComponent , Cell1Component1o,Cell7Componentc7,Cell6Componentc6,Cell5Componentc5,Cell4Componentc4,Cell2Component2o,Cell3Componentc3,HttpClientModule, CommonModule, RouterOutlet, SidebarComponent, AnalyticsCardComponent, ExportButtonComponent, TimelineChartComponent],
+  imports: [ SidebarOpComponent , Cell1Component1o,Cell7Componentc7,Cell6Componentc6,Cell5Componentc5,Cell4Componentc4,Cell2Component2o,Cell3Componentc3,HttpClientModule, CommonModule, RouterOutlet, SidebarComponent, AnalyticsCardComponent, TimelineChartComponent],
   templateUrl: './operador-dashboard.component.html',
   styleUrl: './operador-dashboard.component.css'
 })

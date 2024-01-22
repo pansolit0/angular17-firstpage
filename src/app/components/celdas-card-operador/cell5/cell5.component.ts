@@ -4,6 +4,7 @@ import {color} from "chart.js/helpers";
 import {HttpClient} from "@angular/common/http";
 import { Colors } from 'chart.js';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DataPieChartService } from '../../../core/data-pie-chart.service';
 interface DeviceData {
   [key: string]: any; // Change `any` to a more specific type if possible.
 }
@@ -21,7 +22,8 @@ interface Colors {
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, NgStyle],
   templateUrl: './cell5.component.html',
-  styleUrl: './cell5.component.css'
+  styleUrl: './cell5.component.css',
+  providers: [DataPieChartService]
 })
 export class Cell5Componentc5 {
 
@@ -29,9 +31,13 @@ export class Cell5Componentc5 {
   recommendationTexts: string[] = [];
   deviceData: DeviceData = {}; // Use the DeviceData type here
   colors: Colors = {}; // Use the Colors type here
-  apiEndpoint = 'https://ayudaweb.cl/api/apichart.php';
 
-  constructor(private http: HttpClient) {}
+
+  constructor(
+      private http: HttpClient,
+      private dataService: DataPieChartService
+  ) {
+  }
 
   private lastFetchTime: Date | null = null;
   private cacheDuration = 5 * 60 * 1000;
@@ -50,33 +56,28 @@ export class Cell5Componentc5 {
 
   fetchData(): void {
     const now = new Date();
-    // Si la última vez que se trajo la data es menor al tiempo de caché, no hace la solicitud
     if (this.lastFetchTime && now.getTime() - this.lastFetchTime.getTime() < this.cacheDuration) {
       console.log('Using cached data');
       return;
     }
-    // Actualizar la última hora de la solicitud
     this.lastFetchTime = now;
 
-    this.http.get<ApiResponse>(`${this.apiEndpoint}?celda=celda_2`).subscribe(
-      data => {
-        if (data) {
-          this.deviceData = {
-            jg: data.jg,
-            hf: data.hf,
-            ro: data.ro
-          };
+    // Cambio: utilizar el servicio para obtener los datos
+    const columns = ['jg', 'hf', 'ro']; // Define las columnas que necesitas
+    this.dataService.obtenerDatosCelda('celda_5', columns).subscribe(
+        (data: DeviceData) => {
+          // Actualizar deviceData y colors
+          this.deviceData = data;
           Object.keys(this.deviceData).forEach(key => {
             const value = this.deviceData[key];
             if (value !== undefined) {
-              this.colors[key] = this.determineColor(key, value);
+              this.colors[key] = this.determineColor(key, parseFloat(value).toFixed(1));
             }
           });
+        },
+        (error: any) => {
+          console.error(`Error fetching data:`, error);
         }
-      },
-      error => {
-        console.error(`Error fetching data:`, error);
-      }
     );
   }
 
@@ -94,7 +95,7 @@ export class Cell5Componentc5 {
   }
 
   determineColor(columna: string, value: any): string {
-    switch(columna) {
+    switch (columna) {
       case 'jg':
         return this.determineColorForJG(value);
       case 'hf':
@@ -107,12 +108,12 @@ export class Cell5Componentc5 {
   }
 
   determineColorForJG(value: number): string {
-    const setPoint = 0.8;
+    const setPoint = 1.3;
     return this.calculateColor(value, setPoint, 'jg');
   }
 
   determineColorForHF(value: number): string {
-    const setPoint = 8;
+    const setPoint = 5;
     return this.calculateColor(value, setPoint, 'hf');
   }
 
@@ -130,18 +131,18 @@ export class Cell5Componentc5 {
     switch (columna) {
       case 'jg':
         recommendation = value > setPoint ?
-          `Bajar el aire un ${0.50 * difference}% para llegar JG ideal.` :
-          `Subir el aire un ${0.50 * difference}% para llegar JG ideal.`;
+            `Bajar el aire un ${0.50 * difference}% para llegar JG ideal.` :
+            `Subir el aire un ${0.50 * difference}% para llegar JG ideal.`;
         break;
       case 'hf':
         recommendation = value > setPoint ?
-          `Cerrar valvulas un ${0.50 * difference}%, observar y evaluar.` :
-          `Abrir valvulas un ${0.50 * difference}% observar y evaluar.`;
+            `Cerrar valvulas un ${0.50 * difference}%, observar y evaluar.` :
+            `Abrir valvulas un ${0.50 * difference}% observar y evaluar.`;
         break;
       case 'ro':
         recommendation = value > setPoint ?
-          `Añadir agua para disminuir densidad de la pulpa.` :
-          `Reducir agua para incrementar densidad de la pulpa.`;
+            `Añadir agua para disminuir densidad de la pulpa.` :
+            `Reducir agua para incrementar densidad de la pulpa.`;
         break;
       default:
         recommendation = '';
@@ -161,8 +162,14 @@ export class Cell5Componentc5 {
       return 'red'; // Más del 20% de variación es 'red'
     }
   }
+
+
   onCheckboxChange() {
     this.showRecommendation = false;
     this.recommendationTexts = [];
+  }
+
+  private updateRecommendations(key: string, value: any) {
+
   }
 }

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { AnalyticsCardComponent } from "./components/analytics-card/analytics-card.component";
-import { ExportButtonComponent } from "./components/export-button/export-button.component";
 import { TimelineChartComponent } from "./components/timeline-chart/timeline-chart.component";
 import { HttpClientModule } from '@angular/common/http';
 import { GerenciaDashboardComponent } from "./layouts/gerencia-dashboard/gerencia-dashboard.component";
@@ -21,7 +20,6 @@ import { ButtonRolComponent } from './components/button-rol/button-rol.component
     RouterOutlet,
     SidebarComponent,
     AnalyticsCardComponent,
-    ExportButtonComponent,
     TimelineChartComponent,
     GerenciaDashboardComponent,
     ReactiveFormsModule,

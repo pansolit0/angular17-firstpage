@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoleStateServiceService } from '../../core/role-state-service.service';
+import { CeldaStateService } from '../../core/celda-state.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,21 +12,21 @@ import { RoleStateServiceService } from '../../core/role-state-service.service';
 })
 export class SidebarComponent {
 
-  constructor(private router: Router, private roleState: RoleStateServiceService) {}
+  constructor(private router: Router, private roleState: RoleStateServiceService, private CeldaStateService: CeldaStateService) {
 
 
-  redirigir(destino: string) {
-    if (destino === 'operador') {
-      this.router.navigate(['/operador-dashboard']);
-    } else if (destino === 'gerencia') {
-      this.router.navigate(['/gerencia-dashboard']);
-    } else if (destino.startsWith('celda')) {
-      const celdaNum = destino.split('-')[1];
-      this.router.navigate([`/layout/celda/cell${celdaNum}`]);
+  }
+
+  redirigir(celdaId: string) {
+    if (celdaId.startsWith('celda')) {
+      const celdaNum = celdaId.split('_')[1];
+      this.CeldaStateService.cambiarCelda(`celda_${celdaNum}`);
     }
-    this.roleState.changeRole(destino);
   }
-  redirigirACelda(celdaNum: number) {
-    this.router.navigate([`/layout/celda/cell${celdaNum}`]);
-  }
+
+    redirigirOperador(destino: string): void {
+        this.router.navigate(['/operador-dashboard']);
+        }
+        // Agregar más condiciones según sea necesario
+
 }

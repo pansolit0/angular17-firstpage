@@ -3,6 +3,7 @@ import {CommonModule, NgStyle} from "@angular/common";
 import {HttpClient} from "@angular/common/http";
 import { Colors } from 'chart.js';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DataPieChartService } from '../../../core/data-pie-chart.service';
 interface DeviceData {
     [key: string]: any; // Change `any` to a more specific type if possible.
 }
@@ -28,7 +29,8 @@ interface ApiResponse {
         ReactiveFormsModule, CommonModule, NgStyle
     ],
     templateUrl: './analytics-card.component.html',
-    styleUrl: './analytics-card.component.css'
+    styleUrl: './analytics-card.component.css',
+    providers: [DataPieChartService]
 })
 
 
@@ -39,9 +41,12 @@ export class Cell1Component1o implements OnInit {
     recommendationTexts: string[] = [];
     deviceData: DeviceData = {}; // Use the DeviceData type here
     colors: Colors = {}; // Use the Colors type here
-    apiEndpoint = 'https://ayudaweb.cl/api/apichart.php';
 
-    constructor(private http: HttpClient) {}
+
+    constructor(
+        private http: HttpClient,
+        private dataService: DataPieChartService
+    ) {}
 
   private lastFetchTime: Date | null = null;
   private cacheDuration = 5 * 60 * 1000;
@@ -58,37 +63,32 @@ export class Cell1Component1o implements OnInit {
     }
   }
 
-  fetchData(): void {
-    const now = new Date();
-    // Si la última vez que se trajo la data es menor al tiempo de caché, no hace la solicitud
-    if (this.lastFetchTime && now.getTime() - this.lastFetchTime.getTime() < this.cacheDuration) {
-      console.log('Using cached data');
-      return;
-    }
-    // Actualizar la última hora de la solicitud
-    this.lastFetchTime = now;
-
-    this.http.get<ApiResponse>(`${this.apiEndpoint}?celda=celda_2`).subscribe(
-      data => {
-        if (data) {
-          this.deviceData = {
-            jg: data.jg,
-            hf: data.hf,
-            ro: data.ro
-          };
-          Object.keys(this.deviceData).forEach(key => {
-            const value = this.deviceData[key];
-            if (value !== undefined) {
-              this.colors[key] = this.determineColor(key, value);
-            }
-          });
+    fetchData(): void {
+        const now = new Date();
+        if (this.lastFetchTime && now.getTime() - this.lastFetchTime.getTime() < this.cacheDuration) {
+            console.log('Using cached data');
+            return;
         }
-      },
-      error => {
-        console.error(`Error fetching data:`, error);
-      }
-    );
-  }
+        this.lastFetchTime = now;
+
+        // Cambio: utilizar el servicio para obtener los datos
+        const columns = ['jg', 'hf', 'ro']; // Define las columnas que necesitas
+        this.dataService.obtenerDatosCelda('celda_1', columns).subscribe(
+            (data: DeviceData) => {
+                // Actualizar deviceData y colors
+                this.deviceData = data;
+                Object.keys(this.deviceData).forEach(key => {
+                    const value = this.deviceData[key];
+                    if (value !== undefined) {
+                        this.colors[key] = this.determineColor(key, parseFloat(value).toFixed(1));
+                    }
+                });
+            },
+            (error: any) => {
+                console.error(`Error fetching data:`, error);
+            }
+        );
+    }
 
 
     updateData(celda: string, columna: string, value: any): void {
