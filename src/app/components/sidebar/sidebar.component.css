@@ -1,0 +1,109 @@
+/* Variables CSS para colores y sombras (deben estar definidas en algún lugar de tu CSS global) */
+:root {
+  --color-white: #fff;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --color-dark: #363949;
+  --color-primary: #6c9cef;
+  --color-light: rgba(132, 139, 200, 0.18);
+  --sidebar-background: #fff; /* color de fondo del sidebar */
+  --sidebar-active-color: #6c9cef; /* color para el ítem activo del sidebar */
+}
+
+/* Restablece algunos estilos predeterminados */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+aside {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: var(--box-shadow);
+  padding-top: 1.5rem;
+}
+
+/* Omitido el CSS de .toggle y .logo ya que no fue proporcionado en su totalidad */
+
+.sidebar {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  padding-bottom: 2rem;
+}
+
+.sidebar a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: var(--color-dark);
+  text-decoration: none;
+  padding: 1rem 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover, .sidebar a.active {
+  background-color: var(--color-light);
+  color: var(--sidebar-active-color);
+}
+
+.sidebar a span.material-symbols-outlined {
+  font-size: 24px; /* Ajusta el tamaño de los íconos */
+  margin-right: 1rem;
+}
+
+.sidebar a h3 {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.sidebar a:last-child {
+  margin-top: auto;
+  width: 100%;
+  padding: 1rem 2rem;
+}
+
+/* Estilos para el botón de cierre de sesión */
+.sidebar a.logout {
+  color: var(--color-dark);
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  aside {
+    width: 100%;
+    height: auto;
+    position: static;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .sidebar a {
+    flex-shrink: 0; /* Evita que los enlaces se compriman */
+  }
+}

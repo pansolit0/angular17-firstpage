@@ -1,0 +1,15 @@
+<div class="horizontal-bar">
+  <!-- Sección del AnalyticsCardComponent -->
+  <app-analytics-card></app-analytics-card>
+  <!-- Sección del TimelineChartComponent -->
+  <div class="timeline-chart">
+    <h2 class="chart-title">CELDA #1</h2>
+    <div class="chart-container">
+      <canvas #myChart width="1200" height="450"></canvas>
+    </div>
+    <div class="chart-actions">
+      <button #saveBtn class="export-btn">EXPORTAR GRÁFICO</button>
+      <button (click)="exportarDatos()" class="export-btn">EXPORTAR DATOS DE CELDA EXCEL</button>
+    </div>
+  </div>
+</div>

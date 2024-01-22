@@ -1,0 +1,82 @@
+<div class="app-container">
+
+  <aside>
+    <div class="toggle">
+      <div class="logo">
+
+        <img src="/assets/images/logo.png">
+
+        <h2><span class="danger"></span></h2>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <!-- Se asume que cada "a" es un enlace a una sección o módulo del dashboard -->
+      <a href="#" (click)="redirigirACelda(1)">
+        <span class="material-symbols-outlined">dashboard</span>
+        <h3>CELDA 1</h3>
+      </a>
+      <!-- Repite el patrón para cada elemento del menú -->
+      <a href="#" (click)="redirigirACelda(2)">
+        <span class="material-symbols-outlined">dashboard</span>
+        <h3>CELDA 2</h3>
+      </a>
+      <!-- ... otros elementos del menú ... -->
+      <a href="#"  (click)="redirigirACelda(3)">
+        <span class="material-symbols-outlined">dashboard</span>
+        <h3>CELDA 3</h3>
+      </a>
+      <a href="#"  (click)="redirigirACelda(4)">
+        <span class="material-symbols-outlined">dashboard</span>
+        <h3>CELDA 4</h3>
+      </a>
+      <a href="#"  (click)="redirigirACelda(5)">
+        <span class="material-symbols-outlined">dashboard</span>
+        <h3>CELDA 5</h3>
+      </a>
+      <a href="#"  (click)="redirigirACelda(6)">
+        <span class="material-symbols-outlined">dashboard</span>
+        <h3>CELDA 6</h3>
+      </a>
+      <a href="#"  (click)="redirigirACelda(7)">
+        <span class="material-symbols-outlined">dashboard</span>
+        <h3>CELDA 7</h3>
+      </a>
+      <a>
+        <span class="material-symbols-outlined"></span>
+        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 white:bg-gray-800 dark:border-gray-700">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+
+            <div class="pantalla-restrictiva">
+        <h3>   <nav class="">
+          <ul class="">
+            <li class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+              <button href="" class=""  (click)="redirigir('operador')">Operador
+              </button>
+            </li>
+          </ul>
+        </nav></h3>
+            </div>
+          </div>
+        </div>
+      </a>
+
+
+      <a href="#" >
+        <span class="material-symbols-outlined"></span>
+        <h3>   <nav class="">
+          <ul class="">
+          </ul>
+        </nav></h3>
+      </a>
+
+
+
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <!-- El contenido principal de tus módulos de Angular irá aquí -->
+  </main>
+
+</div>

@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,900;1,300;1,500;1,900&display=swap');
+
+.horizontal-bar {
+    margin-right: 230px;
+    width: 100%;
+    background-color: var(--color-white);
+    padding: 20px;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    margin-top: 4rem;
+    flex-grow: 1; /* Ocupa el espacio restante */
+    max-width: 85%;
+    transition: margin-left 0.3s; /* Suaviza el cambio de tamaño */
+    column-gap: 15px;
+}
+
+.Tittle-specific {
+    display: flex; /* Usa Flexbox para alinear los hijos */
+    flex-direction: column; /* Alinea los hijos en una columna */
+    align-items: center; /* Centra los hijos horizontalmente */
+    justify-content: center; /* Centra los hijos verticalmente */
+    text-align: center; /* Asegura que el texto dentro de h2 esté centrado */
+    gap: 10px; /* Proporciona espacio entre el título y el gráfico de pastel */
+}
+
+.Tittle-specific h2 {
+    margin: 0; /* Elimina el margen por defecto de h2 */
+    /* Puedes agregar más estilos específicos para h2 aquí si es necesario */
+}
+
+.chart-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--color-dark);
+}
+
+/* Contenedor para los gráficos de pastel */
+.chart-container {
+    display: flex; /* Usa flexbox para alinear los hijos */
+    flex-wrap: wrap; /* Permite que los elementos se ajusten y pasen a la siguiente línea si no hay espacio */
+    justify-content: space-around; /* Distribuye el espacio alrededor de las tarjetas */
+    align-items: center; /* Centra los elementos verticalmente */
+    margin: 0 auto; /* Centra el contenedor en la página */
+    max-width: 1200px; /* Establece un ancho máximo para el contenedor */
+    gap: 10px; /* Espacio entre las tarjetas */
+}
+
+
+.cont-pie {
+    width: calc(20% - 40px); /* Calcula el ancho para que 5 tarjetas quepan en una fila, restando el espacio del 'gap' */
+    background-color: var(--color-white);
+    padding: 20px;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    margin-top: 4rem; /* Puedes ajustar este valor según sea necesario */
+    transition: transform 0.3s; /* Suaviza la transformación al cambiar el tamaño */
+}
+
+
+/* Media queries para ajustes responsivos */
+@media (max-width: 768px) {
+    :root {
+        --sidebar-width: 200px; /* Sidebar más pequeño en pantallas pequeñas */
+    }
+
+    .horizontal-bar {
+        margin-left: var(--sidebar-width);
+    }
+
+    .pie-chart {
+        width: 80px; /* Gráficos de pastel más pequeños en pantallas pequeñas */
+        height: 80px;
+    }
+
+    cont-pie {
+        width: calc(50% - 40px); /* En pantallas más pequeñas, ajusta para que solo haya 2 tarjetas por fila */
+    }
+}
+
+
+.red {
+    background-image: conic-gradient(red 100%, transparent 0%);
+}
+
+.green {
+    background-image: conic-gradient(green 100%, transparent 0%);
+}
+
+.yellow {
+    background-image: conic-gradient(yellow 100%, transparent 0%);
+}
+
+@media (max-width: 480px) {
+    :root {
+        --sidebar-width: 150px; /* Sidebar aún más pequeño para dispositivos móviles */
+    }
+
+    .horizontal-bar {
+        margin-left: 0; /* Sidebar puede que se oculte o se colapse */
+    }
+
+    .chart-container {
+        justify-content: center; /* Centra los gráficos de pastel en pantallas muy pequeñas */
+    }
+
+    .cont-pie {
+        width: calc(100% - 40px); /* En pantallas muy pequeñas, cada tarjeta se extiende al ancho completo */
+    }
+
+    .pie-chart {
+        width: 60px; /* Gráficos de pastel aún más pequeños para dispositivos móviles */
+        height: 60px;
+    }
+}

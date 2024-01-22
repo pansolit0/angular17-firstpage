@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,900;1,300;1,500;1,900&display=swap');
+
+/* Estilos globales */
+:root {
+  --sidebar-width: 250px; /* Ajusta al ancho de tu sidebar */
+  --color-white: #FFFFFF;
+  --color-dark: #000000;
+  --color-background: #F0F0F0;
+  --card-border-radius: 15px;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-dark);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Contenedor de la aplicación completa */
+.app-container {
+  max-width: 25%;
+  display: flex;
+  flex-grow: 1; /* Permite que este contenedor crezca para llenar el espacio disponible */
+  margin-left: var(--sidebar-width); /* Desplaza el contenido para alinearlo al lado del sidebar */
+}
+
+/* Contenedor del contenido principal a la derecha del sidebar */
+.main-content {
+  flex-grow: 1; /* Permite que el contenido crezca para ocupar el espacio restante */
+  padding: 20px; /* Espacio interior para el contenido */
+}
+
+/* Contenedor que incluye el título del gráfico y el icono de descarga */
+.horizontal-bar {
+  display: flex; /* Usa flexbox para la disposición de los elementos */
+  align-items: center; /* Alinea los elementos verticalmente */
+  justify-content: space-between; /* Separa el título y el icono de descarga */
+  background-color: var(--color-white);
+  padding: 20px;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  margin-top: 4rem;
+}
+
+/* Estilos para el icono de descarga */
+span.material-symbols-outlined {
+  font-size: 48px; /* Tamaño del icono de descarga */
+  cursor: pointer;
+}
+
+/* Estilos para el título dentro de .horizontal-bar */
+.chart-title {
+  font-size: 24px; /* Tamaño del texto del título */
+  color: var(--color-dark);
+}
+
+/* Ajuste para dispositivos móviles y pantallas más pequeñas si es necesario */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .horizontal-bar {
+    margin-top: 1rem;
+    flex-direction: column; /* Coloca el título y el icono en columnas en pantallas pequeñas */
+  }
+}

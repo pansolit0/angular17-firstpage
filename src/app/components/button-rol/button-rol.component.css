@@ -1,0 +1,25 @@
+.fondo-bloqueante {
+  position: fixed; /* O absolute, dependiendo de tu layout */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: src('assets/images/overlay2.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.horizontal-bar {
+  margin-right: 230px;
+  width: 100%;
+  background-color: var(--color-white);
+  padding: 20px;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  margin-top: 4rem;
+  flex-grow: 1; /* Ocupa el espacio restante */
+  max-width: 49%;
+  transition: margin-left 0.3s; /* Suaviza el cambio de tamaño */
+  column-gap: 15px;
+}
