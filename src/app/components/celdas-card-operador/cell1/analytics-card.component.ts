@@ -41,6 +41,8 @@ export class Cell1Component1o implements OnInit {
     recommendationTexts: string[] = [];
     deviceData: DeviceData = {}; // Use the DeviceData type here
     colors: Colors = {}; // Use the Colors type here
+    lastRecommendationTime: { [key: string]: number } = {};
+    recommendationCache: { [key: string]: { recommendations: string[], lastUpdateTime: number } } = {};
 
 
     constructor(
@@ -91,7 +93,7 @@ export class Cell1Component1o implements OnInit {
 
 
   updateData(celda: string, columna: string, value: any): void {
-    const truncatedValue = columna === 'jg' ? parseFloat(value).toFixed(2) : parseInt(value, 10);
+    const truncatedValue = columna === 'jg' ? parseFloat(value).toFixed(1) : parseInt(value, 10);
     this.deviceData[columna] = truncatedValue;
     this.colors[columna] = this.determineColor(columna, truncatedValue);
   }
@@ -99,7 +101,7 @@ export class Cell1Component1o implements OnInit {
   truncateDataValues(data: DeviceData): DeviceData {
     return Object.keys(data).reduce((newData, key) => {
       const value = data[key];
-      newData[key] = typeof value === 'number' ? parseFloat(value.toFixed(2)) : value;
+      newData[key] = typeof value === 'number' ? parseFloat(value.toFixed(1)) : value;
       return newData;
     }, {} as DeviceData);
   }
@@ -173,12 +175,9 @@ export class Cell1Component1o implements OnInit {
   }
 
 
-    onCheckboxChange() {
-        this.showRecommendation = false;
-        this.recommendationTexts = [];
-    }
-
-  private updateRecommendations(key: string, value: any) {
-
+  onCheckboxChange() {
+    this.showRecommendation = false;
+    this.recommendationTexts = [];
   }
+
 }

@@ -60,10 +60,9 @@ export class Cell7Componentc7 {
       return;
     }
     this.lastFetchTime = now;
-
     // Cambio: utilizar el servicio para obtener los datos
     const columns = ['jg', 'hf', 'ro']; // Define las columnas que necesitas
-    this.dataService.obtenerDatosCelda('celda_1', columns).subscribe(
+    this.dataService.obtenerDatosCelda('celda_7', columns).subscribe(
       (data: DeviceData) => {
         this.deviceData = this.truncateDataValues(data);
         Object.keys(this.deviceData).forEach(key => {
@@ -79,9 +78,8 @@ export class Cell7Componentc7 {
     );
   }
 
-
   updateData(celda: string, columna: string, value: any): void {
-    const truncatedValue = columna === 'jg' ? parseFloat(value).toFixed(2) : parseInt(value, 10);
+    const truncatedValue = columna === 'jg' ? parseFloat(value).toFixed(1) : parseInt(value, 10);
     this.deviceData[columna] = truncatedValue;
     this.colors[columna] = this.determineColor(columna, truncatedValue);
   }
@@ -89,7 +87,7 @@ export class Cell7Componentc7 {
   truncateDataValues(data: DeviceData): DeviceData {
     return Object.keys(data).reduce((newData, key) => {
       const value = data[key];
-      newData[key] = typeof value === 'number' ? parseFloat(value.toFixed(2)) : value;
+      newData[key] = typeof value === 'number' ? parseFloat(value.toFixed(1)) : value;
       return newData;
     }, {} as DeviceData);
   }
@@ -121,7 +119,6 @@ export class Cell7Componentc7 {
     const setPoint = 1.25;
     return this.calculateColor(value, setPoint, 'ro');
   }
-
 
   calculateColor(value: number, setPoint: number, columna: string): string {
     let difference = Math.abs(value - setPoint);
@@ -163,13 +160,9 @@ export class Cell7Componentc7 {
     }
   }
 
-
   onCheckboxChange() {
     this.showRecommendation = false;
     this.recommendationTexts = [];
   }
 
-  private updateRecommendations(key: string, value: any) {
-
-  }
 }

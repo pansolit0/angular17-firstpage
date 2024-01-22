@@ -82,7 +82,7 @@ export class Cell5Componentc5 {
 
 
   updateData(celda: string, columna: string, value: any): void {
-    const truncatedValue = columna === 'jg' ? parseFloat(value).toFixed(2) : parseInt(value, 10);
+    const truncatedValue = columna === 'jg' ? parseFloat(value).toFixed(1) : parseInt(value, 10);
     this.deviceData[columna] = truncatedValue;
     this.colors[columna] = this.determineColor(columna, truncatedValue);
   }
@@ -90,7 +90,7 @@ export class Cell5Componentc5 {
   truncateDataValues(data: DeviceData): DeviceData {
     return Object.keys(data).reduce((newData, key) => {
       const value = data[key];
-      newData[key] = typeof value === 'number' ? parseFloat(value.toFixed(2)) : value;
+      newData[key] = typeof value === 'number' ? parseFloat(value.toFixed(1)) : value;
       return newData;
     }, {} as DeviceData);
   }
@@ -170,7 +170,5 @@ export class Cell5Componentc5 {
     this.recommendationTexts = [];
   }
 
-  private updateRecommendations(key: string, value: any) {
 
-  }
 }

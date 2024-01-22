@@ -23,3 +23,19 @@
   transition: margin-left 0.3s; /* Suaviza el cambio de tamaño */
   column-gap: 15px;
 }
+
+.sas {
+  width: 800px;
+  height: 600px;
+}
+
+.navButtom{
+  display: flex;
+  padding: 150px 60px ;
+}
+
+.left{
+  padding-left: 95px;
+  padding-top: 50px;
+
+}
