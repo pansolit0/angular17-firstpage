@@ -122,5 +122,95 @@ b {
   margin: 0 70px;
   gap: 1.8rem;
   grid-template-columns: 12rem auto 23rem;
+}
 
+@media (max-width: 768px) {
+
+  .chart-container {
+    flex-direction: column; /* Cambia la dirección del flexbox a columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+  }
+
+  .cont-pie {
+    width: 100%; /* Cada tarjeta se extiende al ancho completo */
+  }
+
+  :root {
+    --sidebar-width: 200px; /* Sidebar más pequeño en pantallas pequeñas */
+  }
+
+  .horizontal-bar {
+  }
+
+  .pie-chart {
+    width: 80px; /* Gráficos de pastel más pequeños en pantallas pequeñas */
+    height: 80px;
+  }
+
+  aside {
+    width: 100%;
+    height: auto;
+    position: relative; /* Cambia a relative */
+    box-shadow: none; /* Opcional, quitar la sombra si no es necesaria en el navbar */
+  }
+
+  .sidebar {
+    flex-direction: row; /* Cambia la dirección a fila */
+    justify-content: space-around; /* Distribuye los elementos de manera uniforme */
+    padding-top: 0; /* Elimina el padding superior si no es necesario */
+  }
+
+  .sidebar a {
+    padding: 1rem; /* Ajusta el padding para los elementos en la barra de navegación */
+    flex-grow: 1; /* Permite que cada enlace crezca para ocupar el espacio disponible */
+    text-align: center; /* Centra el texto dentro de los enlaces */
+  }
+
+  .main-content {
+    margin-top: 60px; /* Ajusta este valor según la altura de tu navbar */
+    margin-left: 250px;
+  }
+
+
+}
+
+
+.red {
+  background-image: conic-gradient(red 100%, transparent 0%);
+}
+
+.green {
+  background-image: conic-gradient(green 100%, transparent 0%);
+}
+
+.yellow {
+  background-image: conic-gradient(yellow 100%, transparent 0%);
+}
+
+@media (max-width: 480px) {
+  :root {
+    --sidebar-width: 150px; /* Sidebar aún más pequeño para dispositivos móviles */
+  }
+
+  .horizontal-bar {
+    margin-left: 0; /* Sidebar puede que se oculte o se colapse */
+  }
+
+  .chart-container {
+    justify-content: center; /* Centra los gráficos de pastel en pantallas muy pequeñas */
+  }
+
+  .chart-container {
+    flex-direction: column; /* Cambia la dirección del flexbox a columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+  }
+
+  .cont-pie {
+    width: 100%; /* Cada tarjeta se extiende al ancho completo */
+  }
+
+  .pie-chart {
+    width: 60px; /* Gráficos de pastel aún más pequeños para dispositivos móviles */
+    height: 60px;
+  }
 }

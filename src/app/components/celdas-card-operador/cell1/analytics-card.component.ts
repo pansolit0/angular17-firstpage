@@ -73,36 +73,36 @@ export class Cell1Component1o implements OnInit {
 
         // Cambio: utilizar el servicio para obtener los datos
         const columns = ['jg', 'hf', 'ro']; // Define las columnas que necesitas
-        this.dataService.obtenerDatosCelda('celda_1', columns).subscribe(
-            (data: DeviceData) => {
-                // Actualizar deviceData y colors
-                this.deviceData = data;
-                Object.keys(this.deviceData).forEach(key => {
-                    const value = this.deviceData[key];
-                    if (value !== undefined) {
-                        this.colors[key] = this.determineColor(key, parseFloat(value).toFixed(1));
-                    }
-                });
-            },
-            (error: any) => {
-                console.error(`Error fetching data:`, error);
+      this.dataService.obtenerDatosCelda('celda_1', columns).subscribe(
+        (data: DeviceData) => {
+          this.deviceData = this.truncateDataValues(data);
+          Object.keys(this.deviceData).forEach(key => {
+            const value = this.deviceData[key];
+            if (value !== undefined) {
+              this.colors[key] = this.determineColor(key, value);
             }
-        );
-    }
-
-
-    updateData(celda: string, columna: string, value: any): void {
-        if (columna === 'jg') {
-            value = parseFloat(value).toFixed(1);
-        } else {
-            value = parseInt(value, 10);
+          });
+        },
+        (error: any) => {
+          console.error(`Error fetching data:`, error);
         }
-
-        // Actualizar los datos y colores
-        this.deviceData[columna] = value;
-        this.colors[columna] = this.determineColor(columna, value);
+      );
     }
 
+
+  updateData(celda: string, columna: string, value: any): void {
+    const truncatedValue = columna === 'jg' ? parseFloat(value).toFixed(2) : parseInt(value, 10);
+    this.deviceData[columna] = truncatedValue;
+    this.colors[columna] = this.determineColor(columna, truncatedValue);
+  }
+
+  truncateDataValues(data: DeviceData): DeviceData {
+    return Object.keys(data).reduce((newData, key) => {
+      const value = data[key];
+      newData[key] = typeof value === 'number' ? parseFloat(value.toFixed(2)) : value;
+      return newData;
+    }, {} as DeviceData);
+  }
     determineColor(columna: string, value: any): string {
         switch(columna) {
             case 'jg':

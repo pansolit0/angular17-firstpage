@@ -1,6 +1,6 @@
 <div class="horizontal-bar">
 
-  <h2 class="chart-title">ESTADOS CELDA 1</h2>
+  <h2 class="chart-title">{{ tituloCelda }}</h2>
 
   <div class="chart-container">
 
@@ -10,7 +10,7 @@
         <div class="pie-chart rounded-full" [ngStyle]="{'background-color': colors['jg']}">
           <br>
           <div class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-full">
-            {{ deviceData?.['jg'] }}
+            <div class="text-3xl">{{ deviceData?.['jg'] }}</div>
           </div>
           <br>
         </div>
@@ -24,7 +24,7 @@
             <div class="pie-chart rounded-full" [ngStyle]="{'background-color': colors['hf']}">
               <br>
               <div class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-full">
-              {{ deviceData?.['hf'] }}
+                <div class="text-3xl">{{ deviceData?.['hf'] }}</div>
               </div>
               <br>
             </div>
@@ -38,7 +38,7 @@
             <div class="pie-chart rounded-full" [ngStyle]="{'background-color': colors['eg']}">
               <br>
               <div class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-full">
-                {{ deviceData?.['eg'] }}
+                <div class="text-3xl">{{ deviceData?.['eg'] }}</div>
               </div>
               <br>
             </div>
@@ -53,7 +53,7 @@
             <div class="pie-chart rounded-full" [ngStyle]="{'background-color': colors['ro']}">
               <br>
               <div class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-full">
-                {{ deviceData?.['ro'] }}
+                <div class="text-3xl">{{ deviceData?.['ro'] }}</div>
               </div>
               <br>
             </div>

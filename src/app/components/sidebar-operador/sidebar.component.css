@@ -93,17 +93,23 @@ aside {
 
 @media (max-width: 768px) {
   aside {
-    width: 100%;
-    height: auto;
-    position: static;
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    position: fixed; /* Fija el sidebar en la parte superior */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Asegura que se muestre por encima de otros elementos */
+    box-shadow: var(--box-shadow); /* Opcional, dependiendo del estilo deseado */
   }
 
   .sidebar {
-    flex-direction: row;
-    overflow-x: auto;
+    flex-direction: row; /* Organiza los elementos en una fila */
+    justify-content: space-between; /* Distribuye los elementos uniformemente */
+    padding-top: 0; /* Elimina el padding superior si no es necesario */
   }
 
   .sidebar a {
-    flex-shrink: 0; /* Evita que los enlaces se compriman */
+    padding: 1rem; /* Ajusta el padding para los elementos en la barra de navegación */
+    flex-grow: 1; /* Permite que cada enlace crezca para ocupar el espacio disponible */
+    text-align: center; /* Centra el texto dentro de los enlaces */
   }
 }

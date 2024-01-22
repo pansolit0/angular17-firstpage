@@ -86,6 +86,16 @@ export class TimelineChartComponent implements AfterViewInit, OnDestroy, OnInit 
     }
   }
 
+  toggleDataset(index: number) {
+    if (this.chart && this.chart.data.datasets) {
+      // Asegurarse de que todos los datasets estén ocultos primero
+      this.chart.data.datasets.forEach((dataset, i) => {
+        dataset.hidden = i !== index;
+      });
+      this.chart.update();
+    }
+  }
+
   inicializarGrafico() {
     const ctx = this.chartRef.nativeElement.getContext('2d');
     if (!ctx) {
@@ -99,15 +109,16 @@ export class TimelineChartComponent implements AfterViewInit, OnDestroy, OnInit 
         labels: [],
         datasets: [
           {
-            label: 'JG PROMEDIO DÍA:',
+            label: 'JG PROMEDIO',
             data: [],
             backgroundColor: 'rgba(67, 100, 143, 0.2)',
             borderColor: 'rgba(67, 100, 143, 1)',
             borderWidth: 1
           },
           {
-            label: 'HF PROMEDIO DÍA:',
+            label: 'HF PROMEDIO',
             data: [],
+            hidden: true,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1

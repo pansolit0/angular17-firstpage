@@ -27,7 +27,7 @@ interface Colors {
 
 
 export class AnalyticsCardComponent implements OnInit {
-
+  tituloCelda: string = 'ESTADOS CELDA 1';
   showRecommendation: boolean = false;
   deviceData: DeviceData = {}; // Use the DeviceData type here
   colors: Colors = {}; // Use the Colors type here
@@ -39,11 +39,13 @@ export class AnalyticsCardComponent implements OnInit {
         private celdaStateService: CeldaStateService
     ) {}
 
-    ngOnInit(): void {
-        this.celdaStateService.celdaActual$.subscribe((celdaActual) => {
-            this.celda = celdaActual;
-            this.fetchAllData();
-        });
+  ngOnInit(): void {
+    this.celdaStateService.celdaActual$.subscribe((celdaActual) => {
+      this.celda = celdaActual;
+      const numeroCelda = celdaActual.split('_')[1];
+      this.tituloCelda = `Estados de la Celda #${numeroCelda.toUpperCase()}`; // Actualizar el título
+      this.fetchAllData();
+    });
 
         // Configurar para actualizar cada 5 minutos (300000 milisegundos)
         this.dataSubscription = interval(300000).subscribe(() => {
