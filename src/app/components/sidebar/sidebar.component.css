@@ -1,26 +1,6 @@
 /* Variables CSS para colores y sombras (deben estar definidas en algún lugar de tu CSS global) */
-:root {
-  --color-white: #fff;
-  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  --color-dark: #363949;
-  --color-primary: #6c9cef;
-  --color-light: rgba(132, 139, 200, 0.18);
-  --sidebar-background: #fff; /* color de fondo del sidebar */
-  --sidebar-active-color: #6c9cef; /* color para el ítem activo del sidebar */
-}
 
 /* Restablece algunos estilos predeterminados */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  width: 100%;
-  height: 100%;
-  font-family: 'Poppins', sans-serif;
-}
 
 .container {
   display: flex;

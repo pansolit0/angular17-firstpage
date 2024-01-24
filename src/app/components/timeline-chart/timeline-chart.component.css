@@ -1,27 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,900;1,300;1,500;1,900&display=swap');
 
-/* Estilos globales */
-:root {
-  --sidebar-width: 250px;
-  --color-white: #FFFFFF;
-  --color-dark: #000000;
-  --color-background: #F0F0F0;
-  --card-border-radius: 15px;
-  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--color-background);
-  color: var(--color-dark);
-  margin: 0;
-  padding: 0;
-  display: flex;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-
 .container {
   display: flex;
   width: 100%;
@@ -33,9 +11,6 @@ body {
   padding-top: 10px;
   justify-content: center;
 
-}
-aside {
-  width: var(--sidebar-width);
 }
 
 /* Contenedor principal que aloja el título del gráfico y el gráfico en sí */
