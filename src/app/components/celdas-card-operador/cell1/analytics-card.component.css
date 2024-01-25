@@ -1,34 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,900;1,300;1,500;1,900&display=swap');
 
-
 .horizontal-bar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start; /* Align to the start to fit the cells from left to right */
-  align-items: stretch;
-  width: calc(100% - var(--sidebar-width)); /* Full width minus sidebar if any */
-  padding: 20px;
-  gap: var(--cell-gap); /* Gap between cells */
-  background-color: var(--color-white);
-  border-radius: var(--card-border-radius);
-  box-shadow: var(--box-shadow);
-  margin-top: 4rem;
-  flex-grow: 0; /* Ocupa el espacio restante */
-  max-width: 85%;
-  transition: margin-left 0.1s; /* Suaviza el cambio de tamaño */
-  column-gap: 15px;
+  box-shadow: none;
+  margin-right: 0;
+  max-width: none;
+  flex-grow: 0;
 }
 
-.horizontal-bar > div {
-  flex-grow: 2;
-  width: 12%;/* Hace que cada celda crezca para ocupar el espacio disponible */
-  /* O puedes usar width: 20%; por ejemplo, si quieres que entren 5 celdas en una fila */
+.columnas {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  border: 1px ;
+  border-radius: 20px;
+}
+
+.celdas-columnas {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.celda{
+  border-top: solid lightblue;
+  border-bottom: solid lightblue;
+  box-shadow: var(--box-shadow);
+  padding: 0px;
+  margin-bottom: 20px; /* Espacio entre las celdas si no usas gap */
+  background-color: var(--color-white);
 }
 
 
 .Tittle-specific {
   display: flex; /* Usa Flexbox para alinear los hijos */
-  flex-direction: column; /* Alinea los hijos en una columna */
+  flex-direction: row; /* Alinea los hijos en una columna */
   align-items: center; /* Centra los hijos horizontalmente */
   justify-content: center; /* Centra los hijos verticalmente */
   text-align: center; /* Asegura que el texto dentro de h2 esté centrado */
@@ -54,7 +59,7 @@
   align-items: center; /* Centra los elementos verticalmente */
   margin: 0 auto; /* Centra el contenedor en la página */
   max-width: 1200px; /* Establece un ancho máximo para el contenedor */
-  gap: 10px; /* Espacio entre las tarjetas */
+  gap: 5px; /* Espacio entre las tarjetas */
 }
 
 /* Estilos individuales para cada gráfico de pastel */
@@ -73,13 +78,6 @@
 
 /* Media queries para ajustes responsivos */
 @media (max-width: 768px) {
-
-
-  .horizontal-bar > div {
-    flex-basis: 50%; /* Hace que cada celda ocupe el 50% del ancho en pantallas pequeñas */
-    /* Otras reglas para pantallas pequeñas */
-  }
-
   :root {
     --sidebar-width: 200px; /* Sidebar más pequeño en pantallas pequeñas */
   }
@@ -115,12 +113,6 @@
   :root {
     --sidebar-width: 150px; /* Sidebar aún más pequeño para dispositivos móviles */
   }
-
-  .horizontal-bar > div {
-    flex-basis: 100%; /* Cada celda ocupa el ancho completo en pantallas muy pequeñas */
-    /* Otras reglas para pantallas muy pequeñas */
-  }
-
 
   .horizontal-bar {
     margin-left: 0; /* Sidebar puede que se oculte o se colapse */

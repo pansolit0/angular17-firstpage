@@ -26,8 +26,8 @@
 
   --box-shadow: 0 2rem 3rem var(--color-light);
   --cell-gap: 15px; /* Gap between cells */
-  margin-left: 100px;
-  flex-grow: 2;
+  margin-left: 93px;
+  flex-grow: 1;
 }
 
 .dark-mode-variables{
