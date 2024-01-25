@@ -7,7 +7,7 @@ import {forkJoin, interval, Subscription} from "rxjs";
 import { DataPieChartService } from '../../core/data-pie-chart.service';
 import { CeldaStateService } from '../../core/celda-state.service';
 interface DeviceData {
-  [key: string]: number; // Cambia `any` por `number` si solo recibes números
+  [key: string]: string; // Los valores ahora son strings para mantener el formato decimal
 }
 
 interface Colors {
@@ -59,34 +59,30 @@ export class AnalyticsCardComponent implements OnInit {
     }
   }
 
-    fetchAllData(): void {
-        console.log("el fetch fue exitoso");
-        const columnas = ['jg', 'hf', 'eg', 'ro', 'sb'];
-        this.serviciodata.obtenerDatosCelda(this.celda, columnas).subscribe((valor) => {
-            this.deviceData = valor;
-            columnas.forEach((columna: string) => {
-                if (valor && valor.hasOwnProperty(columna)) {
-                    this.updateData(this.celda, columna, valor[columna]);
-                }
-            });
-        });
-    }
+  fetchAllData(): void {
+    console.log("el fetch fue exitoso");
+    const columnas = ['jg', 'hf', 'eg', 'ro', 'sb'];
+    this.serviciodata.obtenerDatosCelda(this.celda, columnas).subscribe((valor) => {
+      this.deviceData = valor;
+      columnas.forEach((columna: string) => {
+        if (valor && valor.hasOwnProperty(columna)) {
+          this.updateData(this.celda, columna, valor[columna]);
+        }
+      });
+    });
+  }
 
 
 
-  updateData(celda: string, columna: string, value: any): void {
-    // Convertir el valor a un número con formato adecuado
-    value = (columna === 'jg' || columna === 'eg' || columna === 'sb') ?
-      parseFloat(value).toFixed(1) :
-      parseInt(value, 10);
-
-    this.deviceData[columna] = value;
-    this.colors[columna] = this.determineColor(columna, value);
+  updateData(celda: string, columna: string, value: number): void {
+    // Declarar formattedValue como string
+    let formattedValue: string = value.toFixed(2);
+    this.deviceData[columna] = formattedValue;
+    this.colors[columna] = this.determineColor(columna, parseFloat(formattedValue));
   }
 
 
   determineColor(columna: string, value: number): string {
-    // Campos que siempre deben ser verdes
     const alwaysGreenFields = ['jg', 'hf', 'eg', 'ro', 'sb'];
     if (alwaysGreenFields.includes(columna)) {
       return 'green';

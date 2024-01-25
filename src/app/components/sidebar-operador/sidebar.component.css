@@ -1,16 +1,3 @@
-/* Variables CSS para colores y sombras (deben estar definidas en algún lugar de tu CSS global) */
-:root {
-  --color-white: #fff;
-  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  --color-dark: #363949;
-  --color-primary: #6c9cef;
-  --color-light: rgba(132, 139, 200, 0.18);
-  --sidebar-background: #fff; /* color de fondo del sidebar */
-  --sidebar-active-color: #6c9cef; /* color para el ítem activo del sidebar */
-}
-
-/* Restablece algunos estilos predeterminados */
-
 
 .container {
   display: flex;
@@ -44,42 +31,12 @@ aside {
   padding-bottom: 2rem;
 }
 
-.sidebar a {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  color: var(--color-dark);
-  text-decoration: none;
-  padding: 1rem 2rem;
-  transition: background-color 0.3s ease;
-}
-
 .sidebar a:hover, .sidebar a.active {
   background-color: var(--color-light);
   color: var(--sidebar-active-color);
 }
 
-.sidebar a span.material-symbols-outlined {
-  font-size: 24px; /* Ajusta el tamaño de los íconos */
-  margin-right: 1rem;
-}
 
-.sidebar a h3 {
-  font-size: 1rem;
-  font-weight: normal;
-}
-
-.sidebar a:last-child {
-  margin-top: auto;
-  width: 100%;
-  padding: 1rem 2rem;
-}
-
-/* Estilos para el botón de cierre de sesión */
-.sidebar a.logout {
-  color: var(--color-dark);
-  font-weight: bold;
-}
 
 @media (max-width: 768px) {
   aside {

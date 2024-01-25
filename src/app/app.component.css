@@ -4,14 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* You can add global styles to this file, and also import other style files */
+
 
 .containers {
   display: grid;
   width: 100%;
   max-width: 70%;
-  margin: 0 70px;
-  gap: 1.8rem;
-  grid-template-columns: 12rem auto 23rem;
+  gap: 0.1rem;
+  grid-template-columns: 2rem auto 23rem;
 }
 
