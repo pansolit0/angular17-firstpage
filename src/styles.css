@@ -122,3 +122,8 @@ b {
   color: var(--color-warning);
 }
 
+@media (max-width: 768px) {
+  .root {
+    margin-left: 0;
+  }
+}

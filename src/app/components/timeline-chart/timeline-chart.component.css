@@ -50,3 +50,41 @@
   align-items: center;
   width: 100%;
 }
+
+@media (max-width: 768px) {
+  .container, .container2 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-content {
+    margin-left: 0; /* Elimina el margen izquierdo en tablets */
+  }
+
+  .horizontal-bar {
+    width: 100%; /* El contenedor horizontal ocupa el 100% del ancho */
+  }
+
+  .chart-container {
+    flex-direction: column;
+  }
+
+  .chart-contenedor canvas {
+    width: 100% !important; /* Forzamos el ancho del canvas al 100% */
+    height: auto !important; /* La altura se ajustará proporcionalmente */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 10px; /* Menos padding en dispositivos más pequeños */
+  }
+
+  .horizontal-bar {
+    padding: 10px; /* Igual que el padding de main-content */
+  }
+
+  .chart-contenedor canvas {
+    max-width: 150%; /* Asegura que el canvas no se desborde de su contenedor */
+  }
+}

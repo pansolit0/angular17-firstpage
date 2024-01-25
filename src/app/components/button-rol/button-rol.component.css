@@ -1,41 +1,78 @@
 .fondo-bloqueante {
-  position: fixed; /* O absolute, dependiendo de tu layout */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: src('assets/images/overlay2.png') no-repeat center center;
-  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.5);
 }
+
 .horizontal-bar {
-  margin-right: 230px;
-  width: 100%;
-  background-color: var(--color-white);
-  padding: 20px;
-  border-radius: var(--card-border-radius);
-  box-shadow: var(--box-shadow);
-  margin-top: 4rem;
-  flex-grow: 1; /* Ocupa el espacio restante */
-  max-width: 49%;
-  transition: margin-left 0.3s; /* Suaviza el cambio de tamaño */
-  column-gap: 15px;
-}
-
-.sas {
-  width: 800px;
-  height: 600px;
-}
-
-.navButtom{
+  background: #fff; /* Fondo blanco para la tarjeta */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra para la tarjeta */
+  border-radius: 10px; /* Bordes redondeados para la tarjeta */
+  padding: 2rem; /* Espaciado interno para la tarjeta */
   display: flex;
-  padding: 150px 60px ;
+  flex-direction: column; /* Alinear verticalmente */
+  align-items: center; /* Centrar los elementos horizontalmente */
+  justify-content: space-around; /* Distribuir el espacio verticalmente */
+  max-width: 500px; /* Ancho máximo para la tarjeta */
+  width: 100%; /* Ancho basado en el contenido */
+  margin: 2rem; /* Margen alrededor de la tarjeta */
 }
 
-.left{
-  padding-left: 95px;
-  padding-top: 50px;
+.container2 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
 
+.pantalla-restrictiva{
+  margin-left: 100px;
+}
+
+@media (min-width: 640px) {
+  .container2 {
+    flex-direction: row; /* Elementos lado a lado en pantallas más grandes */
+  }
+
+  .btn-primary {
+    max-width: none;
+    margin: 0 10px; /* Espacio entre botones */
+  }
+  .pantalla-restrictiva{
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 640px) {
+  .horizontal-bar, .fondo-bloqueante {
+    margin-top: 0;
+    width: auto; /* Ajusta el ancho según el contenido */
+    height: auto; /* Ajusta la altura según el contenido */
+  }
+
+  .pantalla-restrictiva, .navButtom {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    height: auto; /* Ajusta la altura según el contenido */
+  }
+
+
+  .navButtom ul li {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    margin-bottom: 0.5rem; /* Espacio entre botones */
+  }
+
+  .navButtom ul li button {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    height: auto; /* Ajusta la altura según el contenido */
+  }
+  .pantalla-restrictiva{
+    margin-left: 0px;
+  }
 }

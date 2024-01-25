@@ -1,15 +1,13 @@
 <div class="fondo-bloqueante" *ngIf="mostrarFondo">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 ">
-    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 white:bg-gray-800 dark:border-gray-700 ">
-      <div class="p-6 space-y-4 md:space-y-6 sm:p-8 h-80 w-80 sas ">
-          <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-gray left">
-            <img class="w-8 h-8 mr-2" src="./assets/images/logo%20s.png" alt="logo">
+  <div class="flex flex-col items-center justify-center px-8 py-8 mx-auto md:h-screen lg:py-0 horizontal-bar">
+    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 white:bg-gray-800 dark:border-gray-700">
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8 h-80 w-80 ">
+          <a href="#" class="flex items-center mb-6 text-2xl sm:text-4xl font-semibold text-gray-900 dark:text-gray left">
+              <img class="w-8 h-8 sm:w-16 sm:h-16 mr-2" src="./assets/images/logo%20s.png" alt="logo">
             Isprotec
           </a>
-          <div class="pantalla-restrictiva">
-                <nav class="navButtom p-8">
-                  <br>
-                  <ul class="">
+          <div class="pantalla-restrictiva flex flex-col items-center justify-center">
+                  <ul class="space-y-2">
                     <li class=" text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-60 h-20">
                       <button href="" class=""  (click)="redirigir('operador')"><br><h2 class="text-3xl ">Operador</h2>
                       </button>
@@ -19,7 +17,6 @@
                       </button>
                     </li>
                   </ul>
-                </nav>
           </div>
       </div>
     </div>

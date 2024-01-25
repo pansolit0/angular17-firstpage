@@ -72,12 +72,13 @@
     width: 100%; /* Cada tarjeta se extiende al ancho completo */
   }
 
-  :root {
-    --sidebar-width: 200px; /* Sidebar más pequeño en pantallas pequeñas */
-  }
 
+  .grid-container {
+    grid-template-columns: 1fr; /* Makes the grid a single column */
+  }
   .horizontal-bar {
-    margin-left: var(--sidebar-width);
+    margin-right: 0; /* Removes the right margin */
+    margin-left: 0; /* Removes the left margin */
   }
 
   .pie-chart {
@@ -102,15 +103,17 @@
 
 @media (max-width: 480px) {
   :root {
-    --sidebar-width: 150px; /* Sidebar aún más pequeño para dispositivos móviles */
+    --sidebar-width: 0px; /* Sidebar aún más pequeño para dispositivos móviles */
   }
 
   .horizontal-bar {
-    margin-left: 0; /* Sidebar puede que se oculte o se colapse */
+    margin-right: 0; /* Removes the right margin */
+    margin-left: 0;
   }
 
   .chart-container {
     justify-content: center; /* Centra los gráficos de pastel en pantallas muy pequeñas */
+    grid-template-columns: 1fr;
   }
 
   .chart-container {

@@ -9,7 +9,7 @@
 .containers {
   display: grid;
   width: 100%;
-  max-width: 50%;
+  max-width: 70%;
   margin: 0 70px;
   gap: 1.8rem;
   grid-template-columns: 12rem auto 23rem;

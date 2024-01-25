@@ -28,7 +28,7 @@
 }
 
 *{
-  margin: 0;
+  margin: 0 0 0 0;
   padding: 0;
   outline: 0;
   border: 0;
@@ -59,9 +59,23 @@ small {
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Creates three columns */
-  grid-gap: 10px; /* Sets the gap between grid items */
+  grid-gap: 5px; /* Sets the gap between grid items */
 }
 
 .grid-item {
   /* Styling for the grid items, if needed */
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    /* Para tablets, los elementos se muestran en una sola columna */
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    /* Para móviles, los elementos también se muestran en una sola columna */
+    grid-template-columns: 1fr;
+  }
 }
